@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JobSync - Job Aggregation Platform
 
-## Getting Started
+JobSync is a modern, "Metallic Chic" job aggregation platform designed to streamline the job search process. It aggregates listings, provides auto-fill tools for applications, and tracks your progress in a unified dashboard.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+-   **Job Aggregation:** Centralized feed of job postings from various sources (Adzuna integration included).
+-   **Unified Profile:** Single source of truth for your professional data (Resume, Bio, Experience).
+-   **Auto-fill Bookmarklet:** A browser tool to auto-fill external job applications with one click.
+-   **Application Tracker:** Kanban board to manage your job search pipeline (Applied, Interviewing, Offer).
+-   **Social Feed:** Connect with other job seekers, share opportunities, and like posts.
+-   **Metallic Chic Design:** A premium, modern UI with glassmorphism, gradients, and dark mode support.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+-   **Framework:** Next.js 15 (App Router)
+-   **Language:** TypeScript
+-   **Styling:** Tailwind CSS v4
+-   **Icons:** Lucide React
+-   **State Management:** React Context (Auth, Profile, Feed, Saved Jobs)
+-   **Persistence:** LocalStorage (for prototype data persistence)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🏁 Getting Started
 
-## Learn More
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/yourusername/jobsync.git
+    cd jobsync
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4.  **Open the app:**
+    Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Deploy on Vercel
+## 📖 How to Use
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1.  **Sign Up:** Create an account (mock authentication).
+2.  **Build Profile:** Go to `/profile` and fill in your details. This data drives the auto-fill tools.
+3.  **Explore Jobs:** Browse the dashboard for opportunities.
+4.  **Use Tools:** Go to `/dashboard/tools`, drag the **JobSync Auto-fill** button to your bookmarks bar.
+5.  **Apply:** Click the bookmarklet on any job site to fill forms instantly.
+6.  **Track:** Move jobs to your "Tracker" board as you progress.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎨 Design System
+
+The "Metallic Chic" theme is defined in `app/globals.css`. It uses CSS variables for:
+-   `--metallic-gradient`: A silver/gunmetal linear gradient.
+-   `--glass-bg`: Semi-transparent backgrounds for glassmorphism.
+-   `--neon-accent`: Subtle lighting effects.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License.
