@@ -30,12 +30,15 @@ export function UnifiedProfileForm() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSaving(true);
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        updateProfile(formData);
-        setIsSaving(false);
-        // Redirect to dashboard after successful save
-        router.push("/dashboard");
+        try {
+            await updateProfile(formData);
+            // Redirect to dashboard after successful save
+            router.push("/dashboard");
+        } catch (error) {
+            console.error("Failed to save profile:", error);
+        } finally {
+            setIsSaving(false);
+        }
     };
 
     if (isProfileLoading) {
