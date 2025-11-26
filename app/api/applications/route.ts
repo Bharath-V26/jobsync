@@ -88,3 +88,31 @@ export async function PATCH(req: Request) {
         return NextResponse.json({ error: "Internal Error" }, { status: 500 })
     }
 }
+
+export async function DELETE(req: Request) {
+    try {
+        const session = await auth()
+        const { searchParams } = new URL(req.url)
+        const id = searchParams.get("id")
+
+        if (!session?.user?.id) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+        }
+
+        if (!id) {
+            return NextResponse.json({ error: "ID required" }, { status: 400 })
+        }
+
+        await prisma.application.delete({
+            where: {
+                id,
+                userId: session.user.id,
+            },
+        })
+
+        return NextResponse.json({ success: true })
+    } catch (error) {
+        console.error("[APPLICATIONS_DELETE]", error)
+        return NextResponse.json({ error: "Internal Error" }, { status: 500 })
+    }
+}
