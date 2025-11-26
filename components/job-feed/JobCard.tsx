@@ -40,7 +40,7 @@ export function JobCard({ job }: JobCardProps) {
                             variant="ghost"
                             size="icon"
                             className="h-8 w-8 text-muted-foreground hover:text-primary"
-                            onClick={() => toggleSaveJob(job.id)}
+                            onClick={() => toggleSaveJob(job.id, job)}
                         >
                             {saved ? <BookmarkCheck className="h-5 w-5 text-primary fill-primary/20" /> : <Bookmark className="h-5 w-5" />}
                         </Button>

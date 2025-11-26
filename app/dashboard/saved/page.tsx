@@ -1,16 +1,39 @@
 "use client";
 
-import { useSavedJobs } from "@/components/saved-jobs-provider";
-import { mockJobs } from "@/lib/mock-data";
+import { useEffect, useState } from "react";
+import { Job } from "@/lib/mock-data";
 import { JobCard } from "@/components/job-feed/JobCard";
-import { BookmarkX } from "lucide-react";
+import { BookmarkX, Loader2 } from "lucide-react";
 
 export default function SavedJobsPage() {
-    const { savedJobIds } = useSavedJobs();
+    const [savedJobs, setSavedJobs] = useState<Job[]>([]);
+    const [loading, setLoading] = useState(true);
 
-    // In a real app, we would fetch these jobs by ID from the API
-    // For now, we filter the mock data
-    const savedJobs = mockJobs.filter((job) => savedJobIds.includes(job.id));
+    useEffect(() => {
+        async function fetchSavedJobs() {
+            try {
+                const response = await fetch("/api/jobs/saved");
+                if (response.ok) {
+                    const data = await response.json();
+                    setSavedJobs(data);
+                }
+            } catch (error) {
+                console.error("Failed to fetch saved jobs:", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        fetchSavedJobs();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center py-12">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            </div>
+        );
+    }
 
     return (
         <div className="space-y-6">
