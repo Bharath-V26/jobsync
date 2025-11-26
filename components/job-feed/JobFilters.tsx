@@ -21,7 +21,7 @@ export function JobFilters() {
     const [experienceLevels, setExperienceLevels] = useState<string[]>(
         searchParams.get("experience")?.split(",").filter(Boolean) || []
     );
-    const [salaryRange, setSalaryRange] = useState(searchParams.get("salary") || "");
+    const [salaryRange, setSalaryRange] = useState(searchParams.get("salary") || "any");
 
     // Update state when URL changes
     useEffect(() => {
@@ -29,7 +29,7 @@ export function JobFilters() {
         setLocation(searchParams.get("location") || "India");
         setJobTypes(searchParams.get("jobType")?.split(",").filter(Boolean) || []);
         setExperienceLevels(searchParams.get("experience")?.split(",").filter(Boolean) || []);
-        setSalaryRange(searchParams.get("salary") || "");
+        setSalaryRange(searchParams.get("salary") || "any");
     }, [searchParams]);
 
     const toggleArrayFilter = (value: string, current: string[], setter: (v: string[]) => void) => {
@@ -47,7 +47,7 @@ export function JobFilters() {
         if (location) params.set("location", location);
         if (jobTypes.length > 0) params.set("jobType", jobTypes.join(","));
         if (experienceLevels.length > 0) params.set("experience", experienceLevels.join(","));
-        if (salaryRange) params.set("salary", salaryRange);
+        if (salaryRange && salaryRange !== "any") params.set("salary", salaryRange);
 
         router.push(`?${params.toString()}`);
     };
@@ -57,7 +57,7 @@ export function JobFilters() {
         setLocation("India");
         setJobTypes([]);
         setExperienceLevels([]);
-        setSalaryRange("");
+        setSalaryRange("any");
         router.push("/dashboard");
     };
 
@@ -70,7 +70,7 @@ export function JobFilters() {
     const jobTypeOptions = ["Full-time", "Part-time", "Contract", "Remote"];
     const experienceOptions = ["Entry Level", "Mid Level", "Senior", "Lead"];
     const salaryOptions = [
-        { label: "Any", value: "" },
+        { label: "Any Salary", value: "any" },
         { label: "₹0-5L", value: "0-500000" },
         { label: "₹5-10L", value: "500000-1000000" },
         { label: "₹10-20L", value: "1000000-2000000" },
