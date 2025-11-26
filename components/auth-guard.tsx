@@ -10,7 +10,9 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
     const router = useRouter();
 
     useEffect(() => {
+        console.log("AuthGuard status:", status);
         if (status === "unauthenticated") {
+            console.log("Redirecting to login...");
             router.push("/login");
         }
     }, [status, router]);

@@ -11,7 +11,7 @@ export function JobFilters() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [keyword, setKeyword] = useState(searchParams.get("q") || "");
-    const [location, setLocation] = useState(searchParams.get("location") ?? "India");
+    const [location, setLocation] = useState(searchParams.get("location") || "India");
 
     const handleSearch = () => {
         const params = new URLSearchParams(searchParams.toString());
