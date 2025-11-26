@@ -4,9 +4,9 @@ import { searchJobs } from "@/lib/adzuna";
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
-    const q = searchParams.get("q") || "developer";
-    const location = searchParams.get("location") || "san francisco";
-    const country = searchParams.get("country") || "us";
+    const q = searchParams.get("q") || "software developer";
+    const location = searchParams.get("location") || "india";
+    const country = searchParams.get("country") || "in";
     const page = parseInt(searchParams.get("page") || "1");
 
     // Simulate network delay
