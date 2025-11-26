@@ -20,8 +20,8 @@ export function SavedJobsProvider({ children }: { children: React.ReactNode }) {
                 const res = await fetch("/api/jobs/saved");
                 if (res.ok) {
                     const data = await res.json();
-                    // Extract job IDs from the saved jobs list
-                    setSavedJobIds(data.map((job: any) => job.jobId));
+                    // API now returns Job objects, extract IDs from them
+                    setSavedJobIds(data.map((job: any) => job.id));
                 }
             } catch (error) {
                 console.error("Failed to fetch saved jobs:", error);
@@ -47,20 +47,18 @@ export function SavedJobsProvider({ children }: { children: React.ReactNode }) {
                 await fetch(`/api/jobs/saved?jobId=${jobId}`, { method: "DELETE" });
             } else {
                 // POST (Save)
-                // We need job details to save. If not provided, we can't save to DB properly
-                // For now, we assume jobData is passed or we handle it elsewhere
                 if (jobData) {
                     await fetch("/api/jobs/saved", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
-                            jobId,
+                            jobId: String(jobId),
                             title: jobData.title,
-                            company: jobData.company.display_name,
-                            location: jobData.location.display_name,
-                            salary: String(jobData.salary_min || ""),
-                            description: jobData.description,
-                            url: jobData.redirect_url
+                            company: jobData.company,
+                            location: jobData.location,
+                            salary: jobData.salary || "",
+                            description: jobData.description || "",
+                            url: jobData.url || ""
                         }),
                     });
                 }
