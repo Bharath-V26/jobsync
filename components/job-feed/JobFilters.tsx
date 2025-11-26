@@ -1,54 +1,71 @@
 "use client";
 
+import { useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
 export function JobFilters() {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const [keyword, setKeyword] = useState(searchParams.get("q") || "");
+    const [location, setLocation] = useState(searchParams.get("location") || "");
+
+    const handleSearch = () => {
+        const params = new URLSearchParams(searchParams.toString());
+        if (keyword) params.set("q", keyword);
+        else params.delete("q");
+
+        if (location) params.set("location", location);
+        else params.delete("location");
+
+        router.push(`?${params.toString()}`);
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === "Enter") {
+            handleSearch();
+        }
+    };
+
     return (
         <div className="space-y-6">
             <Card>
                 <CardHeader>
-                    <CardTitle className="text-lg">Filters</CardTitle>
+                    <CardTitle className="text-lg">Search & Filters</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
                     <div className="space-y-2">
-                        <Label>Job Type</Label>
-                        <div className="flex flex-col gap-2">
-                            {["Full-time", "Part-time", "Contract", "Remote"].map((type) => (
-                                <label key={type} className="flex items-center gap-2 text-sm">
-                                    <input type="checkbox" className="rounded border-gray-300 text-primary focus:ring-primary" />
-                                    {type}
-                                </label>
-                            ))}
-                        </div>
+                        <Label>Keywords</Label>
+                        <Input
+                            placeholder="e.g. React Developer"
+                            value={keyword}
+                            onChange={(e) => setKeyword(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                        />
                     </div>
 
                     <div className="space-y-2">
-                        <Label>Experience Level</Label>
-                        <div className="flex flex-col gap-2">
-                            {["Entry Level", "Mid Level", "Senior", "Lead"].map((level) => (
-                                <label key={level} className="flex items-center gap-2 text-sm">
-                                    <input type="checkbox" className="rounded border-gray-300 text-primary focus:ring-primary" />
-                                    {level}
-                                </label>
-                            ))}
-                        </div>
+                        <Label>Location</Label>
+                        <Input
+                            placeholder="e.g. London"
+                            value={location}
+                            onChange={(e) => setLocation(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                        />
                     </div>
 
-                    <div className="space-y-2">
-                        <Label>Source</Label>
-                        <div className="flex flex-col gap-2">
-                            {["LinkedIn", "Indeed", "Glassdoor", "Direct"].map((source) => (
-                                <label key={source} className="flex items-center gap-2 text-sm">
-                                    <input type="checkbox" className="rounded border-gray-300 text-primary focus:ring-primary" />
-                                    {source}
-                                </label>
-                            ))}
-                        </div>
-                    </div>
+                    <Button className="w-full" onClick={handleSearch}>
+                        Search Jobs
+                    </Button>
 
-                    <Button className="w-full" variant="outline">Reset Filters</Button>
+                    {/* 
+                      Adzuna API free tier has limited filtering capabilities via simple params.
+                      We'll stick to Keyword + Location for now as they are the most effective.
+                      Additional filters can be added if we switch to a more advanced API or scrape.
+                    */}
                 </CardContent>
             </Card>
         </div>
