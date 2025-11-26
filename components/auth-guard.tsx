@@ -24,7 +24,7 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
     }
 
     if (status === "unauthenticated") {
-        return null; // Will redirect via useEffect
+        return null;
     }
 
     return <>{children}</>;
