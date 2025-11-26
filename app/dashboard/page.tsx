@@ -2,6 +2,7 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { JobFeed } from "@/components/job-feed/JobFeed";
 import { JobFilters } from "@/components/job-feed/JobFilters";
+import { ActiveFilters } from "@/components/job-feed/ActiveFilters";
 import Link from "next/link";
 
 export default function Home() {
@@ -27,7 +28,8 @@ export default function Home() {
         <div className="lg:col-span-1">
           <JobFilters />
         </div>
-        <div className="lg:col-span-3">
+        <div className="lg:col-span-3 space-y-4">
+          <ActiveFilters />
           <JobFeed />
         </div>
       </div>
