@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { Job } from "@/lib/mock-data";
 import { JobCard } from "./JobCard";
 import { Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function JobFeed() {
     const [jobs, setJobs] = useState<Job[]>([]);
