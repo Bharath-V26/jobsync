@@ -15,7 +15,22 @@ export async function GET(req: Request) {
             orderBy: { savedAt: "desc" },
         })
 
-        return NextResponse.json(savedJobs)
+        // Transform SavedJob to Job format expected by JobCard
+        const jobs = savedJobs.map(saved => ({
+            id: saved.jobId,
+            title: saved.title,
+            company: saved.company,
+            location: saved.location || "Not specified",
+            salary: saved.salary || "Not specified",
+            type: "Full-time", // Default
+            description: saved.description || "",
+            postedAt: new Date(saved.savedAt).toLocaleDateString(),
+            logo: "bg-gradient-to-r from-blue-500 to-purple-500",
+            matchScore: 75, // Default
+            url: saved.url || "#",
+        }))
+
+        return NextResponse.json(jobs)
     } catch (error) {
         console.error("[SAVED_JOBS_GET]", error)
         return NextResponse.json({ error: "Internal Error" }, { status: 500 })
