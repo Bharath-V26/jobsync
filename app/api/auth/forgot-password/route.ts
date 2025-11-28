@@ -37,7 +37,8 @@ export async function POST(req: Request) {
 
         // For now, log the reset link to console
         // In production, send this via email
-        const resetLink = `${process.env.NEXTAUTH_URL}/reset-password?token=${token}`;
+        const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+        const resetLink = `${baseUrl}/reset-password?token=${token}`;
         console.log("\n🔐 PASSWORD RESET LINK 🔐");
         console.log("==========================");
         console.log(`Email: ${email}`);
